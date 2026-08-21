@@ -1,39 +1,67 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" data-theme="dark" data-lang="ru">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>DOX MUSIC — спокойный плеер</title>
+  <title>DOX MUSIC — Liquid Glass Player</title>
   <meta http-equiv="Cache-Control" content="no-store, must-revalidate" />
   <link rel="preconnect" href="https://www.youtube.com" />
-  <link rel="stylesheet" href="styles.css?v=9" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css?v=10" />
 </head>
 <body>
-  <div class="bg" aria-hidden="true"></div>
+  <!-- Liquid Glass WebGL shader background -->
+  <canvas id="shaderCanvas" aria-hidden="true"></canvas>
+  <div class="bg-orbs" aria-hidden="true">
+    <span class="orb orb-1"></span>
+    <span class="orb orb-2"></span>
+    <span class="orb orb-3"></span>
+  </div>
+
+  <!-- Toast notifications -->
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
   <div class="app">
     <header class="topbar">
-      <span class="brand">◈ DOX&nbsp;<b>MUSIC</b></span>
-      <span class="tag">спокойный плейлист</span>
+      <span class="brand">
+        <span class="brand-mark">◈</span>
+        <span class="brand-text">DOX <b>MUSIC</b></span>
+      </span>
+      <div class="top-actions">
+        <button class="icon-btn" id="langBtn" title="Switch language" aria-label="Сменить язык">
+          <span id="langLabel">RU</span>
+        </button>
+        <button class="icon-btn" id="themeBtn" title="Toggle theme" aria-label="Переключить тему">
+          <svg class="icon-sun" viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm0-5v3m0 14v3M2 12h3m14 0h3M4.2 4.2l2.1 2.1m11.4 11.4l2.1 2.1M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" width="18" height="18" hidden><path fill="currentColor" d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+      </div>
     </header>
 
     <div class="status" id="status" hidden></div>
 
-    <main class="player">
+    <main class="player glass-card">
       <div class="cover" id="cover">
-        <div class="breath" aria-hidden="true"></div>
-        <div class="ring">
+        <div class="cover-glow" aria-hidden="true"></div>
+        <div class="cover-frame">
           <img id="coverImg" src="" alt="Обложка трека" class="cover-img" />
+          <div class="cover-shine" aria-hidden="true"></div>
         </div>
         <button class="play-btn" id="playBtn" aria-label="Воспроизвести / пауза">
-          <svg class="icon-play" viewBox="0 0 24 24" width="40" height="40"><path d="M8 5v14l11-7z" fill="currentColor" /></svg>
-          <svg class="icon-pause" viewBox="0 0 24 24" width="40" height="40" hidden><path d="M6 5h4v14H6zM14 5h4v14h-4z" fill="currentColor" /></svg>
+          <svg class="icon-play" viewBox="0 0 24 24" width="36" height="36"><path d="M8 5v14l11-7z" fill="currentColor" /></svg>
+          <svg class="icon-pause" viewBox="0 0 24 24" width="36" height="36" hidden><path d="M6 5h4v14H6zM14 5h4v14h-4z" fill="currentColor" /></svg>
         </button>
         <div class="buffering" id="buffering" hidden><span></span><span></span><span></span></div>
+        <div class="mood-badge" id="moodBadge" hidden>
+          <span class="mood-dot" id="moodDot"></span>
+          <span id="moodLabel">—</span>
+        </div>
       </div>
 
       <div class="meta">
-        <p class="now-label">сейчас играет</p>
+        <p class="now-label" data-i18n="nowPlaying">сейчас играет</p>
         <h1 class="title" id="trackTitle">—</h1>
         <p class="artist" id="trackArtist">—</p>
         <div class="viz" id="viz" aria-hidden="true"></div>
@@ -60,8 +88,8 @@
           <svg viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M12 5V1L7 6l5 5V7a6 6 0 1 1-6 6H4a8 8 0 1 0 8-8z"/></svg>
         </button>
         <button class="ctrl ctrl-main" id="mainBtn" aria-label="Воспроизвести / пауза">
-          <svg class="icon-play" viewBox="0 0 24 24" width="28" height="28"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>
-          <svg class="icon-pause" viewBox="0 0 24 24" width="28" height="28" hidden><path d="M6 5h4v14H6zM14 5h4v14h-4z" fill="currentColor"/></svg>
+          <svg class="icon-play" viewBox="0 0 24 24" width="26" height="26"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>
+          <svg class="icon-pause" viewBox="0 0 24 24" width="26" height="26" hidden><path d="M6 5h4v14H6zM14 5h4v14h-4z" fill="currentColor"/></svg>
         </button>
         <button class="ctrl" id="forwardBtn" aria-label="Вперёд 10 сек" title="Вперёд 10 сек">
           <svg viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M12 5V1l5 5-5 5V7a6 6 0 1 0 6 6h2a8 8 0 1 1-8-8z"/></svg>
@@ -88,24 +116,53 @@
       </div>
     </main>
 
-    <section class="playlist" aria-label="Плейлист">
+    <!-- Auto-mix panel -->
+    <section class="automix glass-card" aria-label="Авто-микс">
+      <div class="automix-head">
+        <h2 data-i18n="autoMix">Авто-микс</h2>
+        <span class="automix-status" id="autoMixStatus" data-i18n="off">выкл</span>
+      </div>
+      <div class="mood-chips" id="moodChips">
+        <button class="mood-chip" data-mood="all" data-i18n="moodAll">Все</button>
+        <button class="mood-chip" data-mood="dark">Dark</button>
+        <button class="mood-chip" data-mood="energetic">Energetic</button>
+        <button class="mood-chip" data-mood="chill">Chill</button>
+        <button class="mood-chip" data-mood="calm">Calm</button>
+      </div>
+      <button class="automix-btn" id="autoMixBtn">
+        <svg viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M12 2v2.5A7.5 7.5 0 1 1 4.5 12H2a10 10 0 1 0 10-10zm0 6a4 4 0 1 1-4 4 4 4 0 0 1 4-4zm0-2v3l4-2-4-2v0z"/></svg>
+        <span data-i18n="startAutoMix">Запустить авто-микс</span>
+      </button>
+      <button class="ctrl-sm regenerate" id="regenBtn" title="Сгенерировать новый трек" aria-label="Сгенерировать новый трек">
+        <svg viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M12 4V1L8 5l4 4V6a6 6 0 1 1-6 6H4a8 8 0 1 0 8-8z"/></svg>
+        <span data-i18n="regenerate">Сгенерировать новый</span>
+      </button>
+    </section>
+
+    <section class="playlist glass-card" aria-label="Плейлист">
       <div class="playlist-head">
-        <h2>Плейлист</h2>
-        <span class="playlist-count"><span id="trackCount">0</span> треков</span>
+        <h2 data-i18n="playlist">Плейлист</h2>
+        <span class="playlist-count"><span id="trackCount">0</span> <span data-i18n="tracks">треков</span></span>
       </div>
       <div class="search">
         <svg viewBox="0 0 24 24" width="15" height="15"><path fill="currentColor" d="M15.5 14h-.8l-.3-.3a6.5 6.5 0 1 0-.7.7l.3.3v.8l5 5 1.5-1.5-5-5zm-6 0A4.5 4.5 0 1 1 14 9.5 4.5 4.5 0 0 1 9.5 14z"/></svg>
-        <input type="text" id="search" placeholder="Поиск по трекам…" />
+        <input type="text" id="search" placeholder="Поиск по трекам…" data-i18n-ph="searchPlaceholder" />
       </div>
       <ul id="trackList" class="track-list"></ul>
-      <p class="empty" id="emptyMsg" hidden>Ничего не найдено</p>
+      <p class="empty" id="emptyMsg" hidden data-i18n="notFound">Ничего не найдено</p>
     </section>
+
+    <footer class="footer">
+      <span data-i18n="blockedHint">⚠ — трек недоступен и пропущен автоматически</span>
+    </footer>
   </div>
 
-  <!-- Скрытый плеер YouTube -->
+  <!-- Hidden YouTube IFrame -->
   <div id="ytMount" style="position:fixed;top:0;left:0;width:0;height:0;opacity:0;pointer-events:none;overflow:hidden;"></div>
 
+  <!-- Liquid Glass shader (WebGL) -->
+  <script src="shader.js?v=10"></script>
   <script src="https://www.youtube.com/iframe_api"></script>
-  <script src="player.js?v=9"></script>
+  <script src="player.js?v=10"></script>
 </body>
 </html>
