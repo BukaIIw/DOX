@@ -1,8 +1,9 @@
-/* DOX MUSIC — спокойный плеер-плейлист (YouTube IFrame API). */
+/* DOX MUSIC — спокойный плеер-плейлист (YouTube IFrame API + локальное аудио). */
 (function () {
   "use strict";
 
   const TRACKS = [
+    { id: "myown", local: true, src: "my_track.wav", title: "My Own Track (DOX)", artist: "AI Agent" },
     { id: "JjPtDl6EJ3o", title: "MONTAGEM XONADA", artist: "MXZI, DJ SAMIR, DJ JAVI26" },
     { id: "3lj2hlUWxhM", title: "священная война (Jumpstyle Slowed)", artist: "home4circus" },
     { id: "etN1MFbmzg0", title: "Jumpstyle Phonk", artist: "ZERO PAIN" },
@@ -11,6 +12,20 @@
     { id: "317RHaFF7Xk", title: "METAMORPHOSIS", artist: "INTERWORLD" },
     { id: "PoikYn_-vSU", title: "Грусный реп (speed songs)", artist: "Lida & Tenderlybae" },
     { id: "W7Pofomc7ZU", title: "ярче звёзд (speed up)", artist: "Luciyashi" },
+    { id: "OSbhFr5TzkQ", title: "Close Eyes", artist: "DVRST" },
+    { id: "n9nLkGx81gk", title: "SCOPIN", artist: "Kordhell" },
+    { id: "AqHlQL3PoD8", title: "RAVE", artist: "Dxrk ダーク" },
+    { id: "iBv6kB7WxYg", title: "MIDNIGHT", artist: "PLAYAMANE, Nateki" },
+    { id: "YLWbZ7nwooU", title: "NEON BLADE", artist: "MoonDeity" },
+    { id: "AQvTGVAv4-g", title: "RAPTURE", artist: "INTERWORLD" },
+    { id: "EIk5zIifNTY", title: "SLAY!", artist: "Eternxlkz" },
+    { id: "E4GHq_yP-ro", title: "Step Back!", artist: "1nonly, SXMPRA" },
+    { id: "BX7exLYSEy8", title: "Memory Reboot", artist: "VØJ, Narvent" },
+    { id: "8xkCWjah1Oc", title: "Override", artist: "KSLV Noh" },
+    { id: "1LmLBtRJwFk", title: "Crystals", artist: "Isolate.exe" },
+    { id: "WCOnNcfCvhk", title: "GHOST!", artist: "phonk.me, KIIXSHI" },
+    { id: "FLdGZTSs9Dw", title: "Sea Of Problems", artist: "glichery" },
+    { id: "2ZmeRMW4Gj8", title: "Dream Space", artist: "DVRST" },
   ];
 
   const LS = { vol: "dox_vol", shuffle: "dox_shuffle", repeat: "dox_repeat", last: "dox_last", muted: "dox_muted" };
@@ -48,6 +63,7 @@
   const statusEl = $("status");
 
   let player = null;
+  let audio = null;
   let current = 0;
   let seeking = false;
   let ready = false;
@@ -64,17 +80,41 @@
     if (idx >= 0) current = idx;
   })();
 
-  /* ---------- helpers ---------- */
+  function thumb(id) { return "https://i.ytimg.com/vi/" + id + "/mqdefault.jpg"; }
+  const MEME_COVER = "cover_meme.jpg";
+
   function fmt(sec) {
     if (!isFinite(sec) || sec < 0) sec = 0;
     const m = Math.floor(sec / 60);
     const s = Math.floor(sec % 60);
     return m + ":" + (s < 10 ? "0" : "") + s;
   }
-  function thumb(id) { return "https://i.ytimg.com/vi/" + id + "/mqdefault.jpg"; }
 
-  // Сгенерированная «мемная» обложка — запасной вариант, если превью не загрузилось
-  const MEME_COVER = "cover_meme.jpg";
+  function isLocal() { return TRACKS[current] && TRACKS[current].local; }
+  function pDuration() { return isLocal() ? (audio ? audio.duration || 0 : 0) : (player ? player.getDuration() : 0); }
+  function pTime() { return isLocal() ? (audio ? audio.currentTime || 0 : 0) : (player ? player.getCurrentTime() : 0); }
+  function pState() { if (isLocal()) { if (!audio) return 0; return audio.paused ? 2 : 1; } return player ? player.getPlayerState() : 0; }
+  function pPlay() { if (isLocal()) { if (audio) audio.play(); } else if (player && ready) player.playVideo(); }
+  function pPause() { if (isLocal()) { if (audio) audio.pause(); } else if (player) player.pauseVideo(); }
+  function pSeek(sec) { if (isLocal()) { if (audio) audio.currentTime = sec; } else if (player) player.seekTo(sec, true); }
+  function pVolume(v) { if (isLocal()) { if (audio) audio.volume = v / 100; } else if (player && ready) player.setVolume(v); }
+  function pBuffer() {
+    if (isLocal()) return (audio && audio.buffered && audio.buffered.length) ? audio.buffered.end(audio.buffered.length - 1) / (audio.duration || 1) : 0;
+    return player && player.getVideoLoadedFraction ? player.getVideoLoadedFraction() : 0;
+  }
+
+  function ensureAudio() {
+    if (audio) return;
+    audio = new Audio();
+    audio.preload = "auto";
+    audio.addEventListener("play", () => { setPlayingUI(true); buffering.hidden = true; });
+    audio.addEventListener("pause", () => { setPlayingUI(false); buffering.hidden = true; });
+    audio.addEventListener("ended", () => next(true));
+    audio.addEventListener("loadedmetadata", () => {
+      const d = audio.duration;
+      if (d) { durations[TRACKS[current].id] = d; durationEl.textContent = fmt(d); updateRowDuration(current); }
+    });
+  }
 
   function setCoverImg(id) {
     coverImg.onerror = function () {
@@ -112,14 +152,14 @@
     }
   }
 
-  /* ---------- meta / list ---------- */
   function applyMeta(i) {
     const t = TRACKS[i];
     trackTitle.textContent = t.title;
     trackArtist.textContent = t.artist;
-    setCoverImg(t.id);
-    ytLink.href = "https://youtu.be/" + t.id;
-    ytLink.textContent = "YouTube ↗";
+    if (t.local) { coverImg.onerror = null; coverImg.src = MEME_COVER; }
+    else setCoverImg(t.id);
+    if (t.local) { ytLink.href = "#"; ytLink.textContent = "Локальный трек (мой)"; }
+    else { ytLink.href = "https://youtu.be/" + t.id; ytLink.textContent = "YouTube ↗"; }
     ytLink.style.display = "";
     lsSet(LS.last, t.id);
     if (statusEl) statusEl.hidden = true;
@@ -146,10 +186,11 @@
       const li = document.createElement("li");
       li.className = "track" + (i === current ? " active" : "");
       li.dataset.index = i;
-      const dur = durations[t.id] ? fmt(durations[t.id]) : "—";
+      const dur = durations[t.id] ? fmt(durations[t.id]) : (t.local ? "—" : "—");
+      const thumbSrc = t.local ? MEME_COVER : thumb(t.id);
+      const onerr = t.local ? "" : "onerror=\"this.onerror=null;this.src='" + MEME_COVER + "'\"";
       li.innerHTML =
-        '<img class="track-thumb" src="' + thumb(t.id) + '" alt="" loading="lazy" ' +
-        "onerror=\"this.onerror=null;this.src='" + MEME_COVER + "'\">" +
+        '<img class="track-thumb" src="' + thumbSrc + '" alt="" loading="lazy" ' + onerr + ">" +
         '<div class="track-info"><div class="track-name">' + t.title +
         '</div><div class="track-artist">' + t.artist + "</div></div>" +
         '<span class="track-dur">' + dur + "</span>" +
@@ -163,9 +204,19 @@
   function selectTrack(index, autoplay) {
     current = (index % TRACKS.length + TRACKS.length) % TRACKS.length;
     applyMeta(current);
-    if (player && ready) {
-      if (autoplay) player.loadVideoById(TRACKS[current].id);
-      else player.cueVideoById(TRACKS[current].id);
+    const t = TRACKS[current];
+    if (t.local) {
+      if (player) player.pauseVideo();
+      ensureAudio();
+      audio.src = t.src;
+      audio.volume = (muted ? 0 : volumeVal) / 100;
+      if (autoplay) audio.play();
+    } else {
+      if (audio) audio.pause();
+      if (player && ready) {
+        if (autoplay) player.loadVideoById(t.id);
+        else player.cueVideoById(t.id);
+      }
     }
   }
 
@@ -185,17 +236,20 @@
   }
 
   function next(auto) {
-    if (auto && repeat === "one") { if (player) player.loadVideoById(TRACKS[current].id); return; }
+    if (auto && repeat === "one") {
+      if (isLocal()) { ensureAudio(); audio.currentTime = 0; audio.play(); }
+      else if (player) player.loadVideoById(TRACKS[current].id);
+      return;
+    }
     const nxt = nextIndex();
     if (auto && repeat === "off" && nxt === 0) { setPlayingUI(false); return; }
     selectTrack(nxt, true);
   }
   function prev() {
-    if (player && player.getCurrentTime && player.getCurrentTime() > 3) player.seekTo(0, true);
+    if (pTime() > 3) pSeek(0);
     else selectTrack(prevIndex(), true);
   }
 
-  // Мягкий вход/выход звука (спокойный штрих)
   let fadeTimer = null;
   function rampVolume(to, done) {
     if (!player || !ready) { done && done(); return; }
@@ -212,15 +266,11 @@
   }
 
   function toggle() {
+    if (isLocal()) { ensureAudio(); if (audio.paused) audio.play(); else audio.pause(); return; }
     if (!player) return;
     const st = player.getPlayerState();
-    if (st === YT.PlayerState.PLAYING) {
-      rampVolume(0, () => player.pauseVideo());
-    } else if (ready) {
-      player.setVolume(0);
-      player.playVideo();
-      rampVolume(muted ? 0 : volumeVal);
-    }
+    if (st === YT.PlayerState.PLAYING) rampVolume(0, () => player.pauseVideo());
+    else if (ready) { player.setVolume(0); player.playVideo(); rampVolume(muted ? 0 : volumeVal); }
   }
 
   /* ---------- toggles / volume ---------- */
@@ -231,7 +281,7 @@
   }
   function applyVolume() {
     const v = muted ? 0 : volumeVal;
-    if (player && ready) player.setVolume(v);
+    pVolume(v);
     volume.value = v;
     volVal.textContent = v;
     muteBtn.querySelector(".vol-on").hidden = muted;
@@ -239,7 +289,7 @@
   }
   function toggleMute() { muted = !muted; lsSet(LS.muted, muted ? "1" : "0"); applyVolume(); }
 
-  /* ---------- share (копировать ссылку) ---------- */
+  /* ---------- share ---------- */
   function flashCopied() {
     shareBtn.classList.add("copied");
     const old = shareBtn.title;
@@ -259,10 +309,12 @@
   }
 
   /* ---------- YouTube API ---------- */
+  function firstYouTubeId() { const t = TRACKS.find((x) => !x.local); return t ? t.id : ""; }
+
   window.onYouTubeIframeAPIReady = function () {
     player = new YT.Player("ytMount", {
       height: "1", width: "1",
-      videoId: TRACKS[current].id,
+      videoId: firstYouTubeId(),
       playerVars: {
         autoplay: 0, controls: 0, disablekb: 1, modestbranding: 1,
         playsinline: 1, rel: 0, origin: window.location.origin, host: "https://www.youtube.com",
@@ -293,7 +345,6 @@
     startPolling();
   };
 
-  // Страж: если YouTube не загрузился — понятное сообщение
   setTimeout(function () {
     if (!ready && statusEl) {
       statusEl.textContent = "Не удалось подключиться к YouTube. Проверьте интернет/блокировщик или откройте трек по ссылке ниже ↓";
@@ -309,16 +360,16 @@
 
   function startPolling() {
     setInterval(function () {
-      if (!player || !player.getDuration || seeking) return;
-      const d = player.getDuration() || 0;
-      const c = player.getCurrentTime() || 0;
-      if (d && !durations[TRACKS[current].id]) { durations[TRACKS[current].id] = d; durationEl.textContent = fmt(d); updateRowDuration(current); }
+      if (seeking) return;
+      const d = pDuration();
+      const c = pTime();
       const pct = d ? (c / d) * 100 : 0;
       progressBar.style.width = pct + "%";
       progressKnob.style.left = pct + "%";
       currentTimeEl.textContent = fmt(c);
       if (d) durationEl.textContent = fmt(d);
-      if (player.getVideoLoadedFraction) progressBuffer.style.width = (d ? player.getVideoLoadedFraction() * 100 : 0) + "%";
+      const bf = pBuffer();
+      progressBuffer.style.width = (d ? bf * 100 : 0) + "%";
     }, 250);
   }
 
@@ -327,8 +378,8 @@
   mainBtn.addEventListener("click", toggle);
   nextBtn.addEventListener("click", () => next(false));
   prevBtn.addEventListener("click", prev);
-  rewindBtn.addEventListener("click", () => player && player.getCurrentTime && player.seekTo(Math.max(0, player.getCurrentTime() - 10), true));
-  forwardBtn.addEventListener("click", () => player && player.getCurrentTime && player.seekTo(player.getCurrentTime() + 10, true));
+  rewindBtn.addEventListener("click", () => pSeek(Math.max(0, pTime() - 10)));
+  forwardBtn.addEventListener("click", () => pSeek(pTime() + 10));
 
   shuffleBtn.addEventListener("click", () => { shuffle = !shuffle; lsSet(LS.shuffle, shuffle ? "1" : "0"); syncToggles(); });
   repeatBtn.addEventListener("click", () => { repeat = repeat === "off" ? "all" : repeat === "all" ? "one" : "off"; lsSet(LS.repeat, repeat); syncToggles(); });
@@ -341,17 +392,16 @@
     applyVolume();
   });
 
-  // seek
   function seekFromEvent(ev) {
-    if (!player || !player.getDuration) return;
+    const d = pDuration();
+    if (!d) return;
     const rect = progress.getBoundingClientRect();
     const x = (ev.touches ? ev.touches[0].clientX : ev.clientX) - rect.left;
     const ratio = Math.min(1, Math.max(0, x / rect.width));
-    const d = player.getDuration();
+    pSeek(ratio * d);
     progressBar.style.width = ratio * 100 + "%";
     progressKnob.style.left = ratio * 100 + "%";
     currentTimeEl.textContent = fmt(ratio * d);
-    player.seekTo(ratio * d, true);
   }
   progress.addEventListener("mousedown", (e) => { seeking = true; seekFromEvent(e); });
   progress.addEventListener("touchstart", (e) => { seeking = true; seekFromEvent(e); }, { passive: true });
@@ -366,8 +416,8 @@
     if (e.target.tagName === "INPUT") return;
     switch (e.key) {
       case " ": e.preventDefault(); toggle(); break;
-      case "ArrowRight": player && player.seekTo(player.getCurrentTime() + 5, true); break;
-      case "ArrowLeft": player && player.seekTo(Math.max(0, player.getCurrentTime() - 5), true); break;
+      case "ArrowRight": pSeek(pTime() + 5); break;
+      case "ArrowLeft": pSeek(Math.max(0, pTime() - 5)); break;
       case "n": case "N": next(false); break;
       case "p": case "P": prev(); break;
       case "m": case "M": toggleMute(); break;
@@ -381,5 +431,5 @@
   applyVolume();
   syncToggles();
   renderPlaylist();
-  applyMeta(current);
+  selectTrack(current, false);
 })();
