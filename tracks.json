@@ -1,0 +1,833 @@
+{
+  "tracks": [
+    {
+      "id": "myown",
+      "local": true,
+      "src": "my_track.wav",
+      "title": "My Own Track (DOX)",
+      "artist": "AI Agent",
+      "cover": "art_balance.jpg",
+      "preset": "rave"
+    },
+    {
+      "id": "gen_phonk",
+      "local": true,
+      "src": "track_phonk.wav",
+      "title": "Phonk — Procedural",
+      "artist": "DOX Generator",
+      "cover": "art_balance.jpg",
+      "preset": "phonk"
+    },
+    {
+      "id": "gen_jump",
+      "local": true,
+      "src": "track_jumpstyle.wav",
+      "title": "Jumpstyle — Procedural",
+      "artist": "DOX Generator",
+      "cover": "art_balance.jpg",
+      "preset": "jumpstyle"
+    },
+    {
+      "id": "gen_lofi",
+      "local": true,
+      "src": "track_lofi.wav",
+      "title": "Lo-Fi — Procedural",
+      "artist": "DOX Generator",
+      "cover": "art_balance.jpg",
+      "preset": "lofi"
+    },
+    {
+      "id": "gen_ambient",
+      "local": true,
+      "src": "track_ambient.wav",
+      "title": "Ambient — Procedural",
+      "artist": "DOX Generator",
+      "cover": "art_balance.jpg",
+      "preset": "ambient"
+    },
+    {
+      "id": "gen_rave",
+      "local": true,
+      "src": "track_rave.wav",
+      "title": "Rave — Procedural",
+      "artist": "DOX Generator",
+      "cover": "art_balance.jpg",
+      "preset": "rave"
+    },
+    {
+      "id": "gen_darktrap",
+      "local": true,
+      "src": "track_darktrap.wav",
+      "title": "Dark Trap — Procedural",
+      "artist": "DOX Generator",
+      "cover": "art_balance.jpg",
+      "preset": "darktrap"
+    },
+    {
+      "id": "JjPtDl6EJ3o",
+      "title": "MONTAGEM XONADA",
+      "artist": "MXZI, DJ SAMIR, DJ JAVI26"
+    },
+    {
+      "id": "3lj2hlUWxhM",
+      "title": "священная война (Jumpstyle Slowed)",
+      "artist": "home4circus"
+    },
+    {
+      "id": "etN1MFbmzg0",
+      "title": "Jumpstyle Phonk",
+      "artist": "ZERO PAIN"
+    },
+    {
+      "id": "6HJjhZ-jloI",
+      "title": "HEAVENLY JUMPSTYLE",
+      "artist": "The Vibe Guide"
+    },
+    {
+      "id": "RXRWE_XQ8aE",
+      "title": "Murder In My Mind",
+      "artist": "Kordhell"
+    },
+    {
+      "id": "317RHaFF7Xk",
+      "title": "METAMORPHOSIS",
+      "artist": "INTERWORLD"
+    },
+    {
+      "id": "PoikYn_-vSU",
+      "title": "Грусный реп (speed songs)",
+      "artist": "Lida & Tenderlybae"
+    },
+    {
+      "id": "W7Pofomc7ZU",
+      "title": "ярче звёзд (speed up)",
+      "artist": "Luciyashi"
+    },
+    {
+      "id": "OSbhFr5TzkQ",
+      "title": "Close Eyes",
+      "artist": "DVRST"
+    },
+    {
+      "id": "n9nLkGx81gk",
+      "title": "SCOPIN",
+      "artist": "Kordhell"
+    },
+    {
+      "id": "AqHlQL3PoD8",
+      "title": "RAVE",
+      "artist": "Dxrk ダーク"
+    },
+    {
+      "id": "iBv6kB7WxYg",
+      "title": "MIDNIGHT",
+      "artist": "PLAYAMANE, Nateki"
+    },
+    {
+      "id": "YLWbZ7nwooU",
+      "title": "NEON BLADE",
+      "artist": "MoonDeity"
+    },
+    {
+      "id": "AQvTGVAv4-g",
+      "title": "RAPTURE",
+      "artist": "INTERWORLD"
+    },
+    {
+      "id": "EIk5zIifNTY",
+      "title": "SLAY!",
+      "artist": "Eternxlkz"
+    },
+    {
+      "id": "E4GHq_yP-ro",
+      "title": "Step Back!",
+      "artist": "1nonly, SXMPRA"
+    },
+    {
+      "id": "BX7exLYSEy8",
+      "title": "Memory Reboot",
+      "artist": "VØJ, Narvent"
+    },
+    {
+      "id": "8xkCWjah1Oc",
+      "title": "Override",
+      "artist": "KSLV Noh"
+    },
+    {
+      "id": "1LmLBtRJwFk",
+      "title": "Crystals",
+      "artist": "Isolate.exe"
+    },
+    {
+      "id": "WCOnNcfCvhk",
+      "title": "GHOST!",
+      "artist": "phonk.me, KIIXSHI"
+    },
+    {
+      "id": "FLdGZTSs9Dw",
+      "title": "Sea Of Problems",
+      "artist": "glichery"
+    },
+    {
+      "id": "2ZmeRMW4Gj8",
+      "title": "Dream Space",
+      "artist": "DVRST"
+    },
+    {
+      "id": "k37f1Ldi4BI",
+      "title": "FAVELA",
+      "artist": "MXZI, Deno"
+    },
+    {
+      "id": "8sq7sxZGMI",
+      "title": "SPREE",
+      "artist": "Mc Dellgroove"
+    },
+    {
+      "id": "gP4LCHGa5WE",
+      "title": "Tanzmaschine",
+      "artist": "Rave|DJ King"
+    },
+    {
+      "id": "qPqHBPpPrBQ",
+      "title": "Phonk",
+      "artist": "Bryson|"
+    },
+    {
+      "id": "0Ge9H4DUdBM",
+      "title": "Sahara",
+      "artist": "Hensonn"
+    },
+    {
+      "id": "q6IWhB9r1qM",
+      "title": "Interstellar Love",
+      "artist": "ODESZA"
+    },
+    {
+      "id": "2FEyxWqyL",
+      "title": "Perreo",
+      "artist": "Don Omar"
+    },
+    {
+      "id": "WqNyGvBfTmQ",
+      "title": "Desesperado",
+      "artist": "Mora"
+    },
+    {
+      "id": "JDdqZGGqMSk",
+      "title": "Tu Boca",
+      "artist": "Anitta"
+    },
+    {
+      "id": "tZ4Q6d3YOaw",
+      "title": "Sin Ti",
+      "artist": "Vico C"
+    },
+    {
+      "id": "z4tqLMDbQkE",
+      "title": "Phonk Drift",
+      "artist": "Kordhell"
+    },
+    {
+      "id": "OPXgVgZCuYw",
+      "title": "Universal",
+      "artist": "Dvrst"
+    },
+    {
+      "id": "wzzw8dWRJcA",
+      "title": "Wait",
+      "artist": "Kordhell"
+    },
+    {
+      "id": "z3OJrZJlrEY",
+      "title": "Rock",
+      "artist": "Acid|Ruvlo"
+    },
+    {
+      "id": "EUOqJWn6V8M",
+      "title": "Smile For Me",
+      "artist": "Kordhell"
+    },
+    {
+      "id": "RsPtJKSbqJw",
+      "title": "Pump It",
+      "artist": "Kordhell"
+    },
+    {
+      "id": "pWfPjB1r2A",
+      "title": "Not Plain",
+      "artist": "Remulla"
+    },
+    {
+      "id": "qL5e6GOYE2w",
+      "title": "Believe",
+      "artist": "Kordhell"
+    },
+    {
+      "id": "mSma5E3t6m4",
+      "title": "Hooked",
+      "artist": "Kordhell"
+    },
+    {
+      "id": "RJ3zoXvHM2Y",
+      "title": "Close Eyes",
+      "artist": "Dvrst"
+    },
+    {
+      "id": "w8s8I8Aa2YE",
+      "title": "Kill Everybody",
+      "artist": "Skrillex"
+    },
+    {
+      "id": "YeP6BBZckNg",
+      "title": "Scary Monsters",
+      "artist": "Skrillex"
+    },
+    {
+      "id": "dGZ1lqBM5bE",
+      "title": "Bangarang",
+      "artist": "Skrillex"
+    },
+    {
+      "id": "YVvoPkkF3zc",
+      "title": "Rock N Roll",
+      "artist": "Skrillex"
+    },
+    {
+      "id": "ZWbC3Lp5l5o",
+      "title": "Purple Lamborghini",
+      "artist": "Skrillex"
+    },
+    {
+      "id": "h4UxKzZTGf8",
+      "title": "Wake Up",
+      "artist": "Rage Against"
+    },
+    {
+      "id": "1ZqztZ4mV3I",
+      "title": "Jump Around",
+      "artist": "House Of Pain"
+    },
+    {
+      "id": "9N5zZ4oYq4E",
+      "title": "What Is Love",
+      "artist": "Haddaway"
+    },
+    {
+      "id": "5NmxN5E0aRs",
+      "title": "Sandstorm",
+      "artist": "Darude"
+    },
+    {
+      "id": "iOny1rKMxII",
+      "title": "Levels",
+      "artist": "Avicii"
+    },
+    {
+      "id": "5qO_v0lAI2s",
+      "title": "Children",
+      "artist": "Robert Miles"
+    },
+    {
+      "id": "v5DqZ50WZ2o",
+      "title": "Better Off Alone",
+      "artist": "Alice Deejay"
+    },
+    {
+      "id": "60M1kqKQMHY",
+      "title": "Blue (Da Ba Dee)",
+      "artist": "Eiffel 65"
+    },
+    {
+      "id": "y6120QOlsfU",
+      "title": "Sandstorm",
+      "artist": "Darude"
+    },
+    {
+      "id": "tT7n4BwLwBw",
+      "title": "Cradle Of Filth",
+      "artist": "Nymphetamine"
+    },
+    {
+      "id": "QRp_m4w9Q2E",
+      "title": "Faint",
+      "artist": "Linkin Park"
+    },
+    {
+      "id": "kXYiU_JC3WY",
+      "title": "The Rockafeller Skank",
+      "artist": "Fatboy Slim"
+    },
+    {
+      "id": "1w7OgIM2cSA",
+      "title": "Weapon Of Choice",
+      "artist": "Fatboy Slim"
+    },
+    {
+      "id": "iR6jQX1l7sA",
+      "title": "Praise You",
+      "artist": "Fatboy Slim"
+    },
+    {
+      "id": "LOZbXcf3uCk",
+      "title": "Phonky Bass",
+      "artist": "Kordhell"
+    },
+    {
+      "id": "vwzXJ6T5gUE",
+      "title": "Live Another Day",
+      "artist": "Kordhell"
+    },
+    {
+      "id": "QNFhjYW5DRo",
+      "title": "Smile For Me",
+      "artist": "Kordhell"
+    },
+    {
+      "id": "8EPEpel5Et0",
+      "title": "Universal",
+      "artist": "DVRST"
+    },
+    {
+      "id": "4i0QZ8yiRdM",
+      "title": "Sea Of Problems",
+      "artist": "glichery"
+    },
+    {
+      "id": "KkPNqKq-i7U",
+      "title": "Chr0nic",
+      "artist": "VØJ"
+    },
+    {
+      "id": "4q4q4q4q4q4",
+      "title": "Memory Reboot",
+      "artist": "VØJ, Narvent"
+    },
+    {
+      "id": "2P5gxZIBwA8",
+      "title": "Close Eyes",
+      "artist": "DVRST"
+    },
+    {
+      "id": "g0FKaU5b3Uk",
+      "title": "Koto",
+      "artist": "DJ PANIK"
+    },
+    {
+      "id": "tQq8qWQs1rM",
+      "title": "Phonk",
+      "artist": "Masha"
+    },
+    {
+      "id": "F3X6IcXqH3Q",
+      "title": "Zero",
+      "artist": "Miyagi"
+    },
+    {
+      "id": "5T4dh4uW4qY",
+      "title": "Komarov",
+      "artist": "DVRST"
+    },
+    {
+      "id": "Z7uYJg8V3u4",
+      "title": "Phonk House",
+      "artist": "Mohbb"
+    },
+    {
+      "id": "Q77777777777",
+      "title": "Test",
+      "artist": "Test"
+    },
+    {
+      "id": "0Bf4cYd6V3w",
+      "title": "Land Of Fire",
+      "artist": "Kordhell"
+    },
+    {
+      "id": "2GHRPlv8KWA",
+      "title": "Sahara (Phonk Remix)",
+      "artist": "Kordhell"
+    },
+    {
+      "id": "Rj7NdR3DZiA",
+      "title": "Not Plain",
+      "artist": "Kordhell"
+    },
+    {
+      "id": "9w5jqMrL2P0",
+      "title": "Universal",
+      "artist": "DVRST"
+    },
+    {
+      "id": "jLcJjLcJLc0",
+      "title": "Phonk|Mc|Rude Boy",
+      "artist": "DJ PM"
+    },
+    {
+      "id": "q7sCJP7KPw0",
+      "title": "Rave|Mohbb|Phonk House",
+      "artist": "Mohbb"
+    },
+    {
+      "id": "3WqVQrYz3uE",
+      "title": "Phonk|Kordhell|Living",
+      "artist": "Kordhell"
+    },
+    {
+      "id": "Fh5XhYzqY2k",
+      "title": "Wait|Kordhell",
+      "artist": "Kordhell"
+    },
+    {
+      "id": "75M7QAaOIbM",
+      "title": "METAMORPHOSIS II",
+      "artist": "INTERWORLD"
+    },
+    {
+      "id": "dt5MWPqJzJs",
+      "title": "DAKARA",
+      "artist": "INTERWORLD"
+    },
+    {
+      "id": "KfQXqQvVzD0",
+      "title": "ILLUSION",
+      "artist": "INTERWORLD"
+    },
+    {
+      "id": "j5z_e1QepjY",
+      "title": "Phonk House",
+      "artist": "DVRST"
+    },
+    {
+      "id": "eTx4yLqYmhA",
+      "title": "Darkness",
+      "artist": "DVRST"
+    },
+    {
+      "id": "iDFe3j2Z3Jc",
+      "title": "Headhunterz|Power Of Mind",
+      "artist": "Headhunterz"
+    },
+    {
+      "id": "jXVg1SaAucM",
+      "title": "Brennan Heart|Imaginary",
+      "artist": "Brennan Heart"
+    },
+    {
+      "id": "c6KfWqD3JzM",
+      "title": "Showtek|Booyah",
+      "artist": "Showtek"
+    },
+    {
+      "id": "Gj5XBqIqIYw",
+      "title": "Phonk|House|Bass boosted",
+      "artist": "Mohbb"
+    },
+    {
+      "id": "6tP4x6xNx8w",
+      "title": "Black|Pentatonic|Phonk",
+      "artist": "DXRK"
+    },
+    {
+      "id": "d7tJqJmQ1zY",
+      "title": "Phonk|Dark|Night",
+      "artist": "Phonk House"
+    },
+    {
+      "id": "jPAm5LqYmXk",
+      "title": "Montagem|PR Funk",
+      "artist": "MC Kevin"
+    },
+    {
+      "id": "h2X6jzM6V_Q",
+      "title": "Montagem|Brazilian Phonk",
+      "artist": "MC Brinquedo"
+    },
+    {
+      "id": "0L8d3lP3o8E",
+      "title": "Russian|Rave|Hardbass",
+      "artist": "Hardbass School"
+    },
+    {
+      "id": "3JxX5gX2H9U",
+      "title": "Bandit|Phonk|Russia",
+      "artist": "Lida"
+    },
+    {
+      "id": "5rX4hG3tJ0Y",
+      "title": "Pt. 2|Eternxlkz|SLAY",
+      "artist": "Eternxlkz"
+    },
+    {
+      "id": "8Oq5oY5n7iY",
+      "title": "NEON BLADE II|MoonDeity",
+      "artist": "MoonDeity"
+    },
+    {
+      "id": "xY7l5mQX2uY",
+      "title": "Memory|VØJ|Reboot",
+      "artist": "VØJ"
+    },
+    {
+      "id": "Hq5xTqH3j7A",
+      "title": "GHOST! II|KIIXSHI",
+      "artist": "phonk.me"
+    },
+    {
+      "id": "FZ5O4tQ3L8M",
+      "title": "Override II|KSLV Noh",
+      "artist": "KSLV Noh"
+    },
+    {
+      "id": "v4X5gM3r1iY",
+      "title": "Crystals II|Isolate.exe",
+      "artist": "Isolate.exe"
+    },
+    {
+      "id": "tV5qYqX6n2Y",
+      "title": "Sea Of Problems II|glichery",
+      "artist": "glichery"
+    },
+    {
+      "id": "P5xY7Tg3q1Y",
+      "title": "MIDNIGHT II|PLAYAMANE",
+      "artist": "PLAYAMANE"
+    },
+    {
+      "id": "W5nTg2Pq3oY",
+      "title": "Step Back! II|1nonly",
+      "artist": "1nonly"
+    },
+    {
+      "id": "g3YqX4Pn5rY",
+      "title": "FAVELA II|MXZI",
+      "artist": "MXZI"
+    },
+    {
+      "id": "k4N3gX7r2tY",
+      "title": "Memory Reboot III|Narvent",
+      "artist": "Narvent"
+    },
+    {
+      "id": "Hb4qP5oZ3rY",
+      "title": "Sahara (Sped Up)",
+      "artist": "Hensonn"
+    },
+    {
+      "id": "w2RqX4Lp6iY",
+      "title": "Montagem|Funk Mix",
+      "artist": "MC IG"
+    },
+    {
+      "id": "F4xY7pR3tZQ",
+      "title": "Brazilian Phonk|Manoel Gomes",
+      "artist": "MC Wallace"
+    },
+    {
+      "id": "Z9oYw2Lq4rY",
+      "title": "Hardstyle Phonk|Distorted",
+      "artist": "DJ Isaac"
+    },
+    {
+      "id": "k7Y5oLq3pRQ",
+      "title": "Russian Phonk|Speed Up",
+      "artist": "GSPD"
+    },
+    {
+      "id": "M5xL2Yq4pZQ",
+      "title": "Dark Phonk|Night Drive",
+      "artist": "DVRST"
+    },
+    {
+      "id": "v2X5gY7nLq3",
+      "title": "Rave|Rave|Mohbb",
+      "artist": "Mohbb"
+    },
+    {
+      "id": "N5pYqL3oR8Q",
+      "title": "Phonk|Murder In My Mind II",
+      "artist": "Kordhell"
+    },
+    {
+      "id": "F3xY7pL4rZQ",
+      "title": "Brazilian Phonk|Montagem",
+      "artist": "MC IG"
+    },
+    {
+      "id": "H5xL2Yq3pZQ",
+      "title": "Dark Phonk|Sped Up",
+      "artist": "DVRST"
+    },
+    {
+      "id": "L5xY7pR4tZQ",
+      "title": "Brazilian Phonk|Manoel Gomes",
+      "artist": "MC Wallace"
+    },
+    {
+      "id": "V5xY7pR3tZQ",
+      "title": "Hardstyle Phonk|Distorted",
+      "artist": "DJ Isaac"
+    },
+    {
+      "id": "X5xY7pL4rZQ",
+      "title": "Brazilian Phonk|Montagem",
+      "artist": "MC IG"
+    },
+    {
+      "id": "5xY7pL4rZQY",
+      "title": "Phonk|Brazil|Sped Up",
+      "artist": "MC IG"
+    },
+    {
+      "id": "7xY5pL3rZQY",
+      "title": "Phonk|Russian|Sped Up",
+      "artist": "GSPD"
+    },
+    {
+      "id": "3xY7pL4rZQY",
+      "title": "Phonk|Hard|Distorted",
+      "artist": "DJ Isaac"
+    },
+    {
+      "id": "2xY7pL4rZQY",
+      "title": "Phonk|Night|Drive",
+      "artist": "DVRST"
+    },
+    {
+      "id": "9xY7pL4rZQY",
+      "title": "Phonk|Brazil|Funk",
+      "artist": "MC Wallace"
+    },
+    {
+      "id": "1xY7pL4rZQY",
+      "title": "Phonk|Jumpstyle|Mix",
+      "artist": "DJ SAMIR"
+    },
+    {
+      "id": "6xY7pL4rZQY",
+      "title": "Phonk|Montagem|PR",
+      "artist": "MC Kevin"
+    },
+    {
+      "id": "4xY7pL4rZQY",
+      "title": "Phonk|Hardbass|Rave",
+      "artist": "Hardbass School"
+    },
+    {
+      "id": "8xY7pL4rZQY",
+      "title": "Phonk|Memory|Reboot",
+      "artist": "VØJ"
+    },
+    {
+      "id": "0xY7pL4rZQY",
+      "title": "Phonk|Close Eyes|II",
+      "artist": "DVRST"
+    },
+    {
+      "id": "1klc7qAcBGE",
+      "title": "Sahara|Hensonn|Sped Up",
+      "artist": "Hensonn"
+    },
+    {
+      "id": "Z3RqP5yW3xY",
+      "title": "Brazilian Phonk|Manoel Gomes",
+      "artist": "MC Wallace"
+    },
+    {
+      "id": "F8qX5oL4rZQ",
+      "title": "Russian Phonk|Bandit",
+      "artist": "Lida"
+    },
+    {
+      "id": "K4xY7pL3rZQ",
+      "title": "Dark Phonk|Sped Up|Phonk",
+      "artist": "DVRST"
+    },
+    {
+      "id": "J9xY7pL4rZQ",
+      "title": "Hardstyle Phonk|Rave",
+      "artist": "DJ Isaac"
+    },
+    {
+      "id": "L7xY5pR3tZQ",
+      "title": "Montagem|Brazilian Phonk",
+      "artist": "MC Brinquedo"
+    },
+    {
+      "id": "N4xY5pL3rZQ",
+      "title": "Speed Up Phonk|Brazil",
+      "artist": "MC IG"
+    },
+    {
+      "id": "P9xY7pL4rZQ",
+      "title": "Russian Phonk|GSPD",
+      "artist": "GSPD"
+    },
+    {
+      "id": "R3xY7pL4rZQ",
+      "title": "Phonk|Murder|Kordhell",
+      "artist": "Kordhell"
+    },
+    {
+      "id": "T5xY7pL4rZQ",
+      "title": "Phonk|Memory|VØJ",
+      "artist": "VØJ"
+    },
+    {
+      "id": "V8xY7pL4rZQ",
+      "title": "Phonk|Close|DVRST",
+      "artist": "DVRST"
+    },
+    {
+      "id": "X2xY7pL4rZQ",
+      "title": "Phonk|Neon|MoonDeity",
+      "artist": "MoonDeity"
+    },
+    {
+      "id": "Z5xY7pL4rZQ",
+      "title": "Phonk|Interworld|Metamorphosis",
+      "artist": "INTERWORLD"
+    },
+    {
+      "id": "B3xY7pL4rZQ",
+      "title": "Phonk|Eternxlkz|SLAY",
+      "artist": "Eternxlkz"
+    },
+    {
+      "id": "D8xY7pL4rZQ",
+      "title": "Phonk|Step Back|1nonly",
+      "artist": "1nonly"
+    },
+    {
+      "id": "F2xY7pL4rZQ",
+      "title": "Phonk|Override|KSLV Noh",
+      "artist": "KSLV Noh"
+    },
+    {
+      "id": "H5xY7pL4rZQ",
+      "title": "Phonk|Crystals|Isolate.exe",
+      "artist": "Isolate.exe"
+    },
+    {
+      "id": "J7xY7pL4rZQ",
+      "title": "Phonk|GHOST|KIIXSHI",
+      "artist": "phonk.me"
+    },
+    {
+      "id": "L9xY7pL4rZQ",
+      "title": "Phonk|Sea|glichery",
+      "artist": "glichery"
+    },
+    {
+      "id": "N3xY7pL4rZQ",
+      "title": "Phonk|Dream|DVRST",
+      "artist": "DVRST"
+    },
+    {
+      "id": "P5xY7pL4rZQ",
+      "title": "Phonk|FAVELA|MXZI",
+      "artist": "MXZI"
+    }
+  ],
+  "count": 160
+}
