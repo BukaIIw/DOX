@@ -73,12 +73,15 @@
   }
   function thumb(id) { return "https://i.ytimg.com/vi/" + id + "/mqdefault.jpg"; }
 
+  // Сгенерированная «мемная» обложка — запасной вариант, если превью не загрузилось
+  const MEME_COVER = "cover_meme.jpg";
+
   function setCoverImg(id) {
     coverImg.onerror = function () {
       coverImg.onerror = function () {
         coverImg.onerror = function () {
           coverImg.onerror = null;
-          coverImg.src = "https://i.ytimg.com/vi/" + id + "/mqdefault.jpg";
+          coverImg.src = MEME_COVER;
         };
         coverImg.src = "https://i.ytimg.com/vi/" + id + "/hqdefault.jpg";
       };
@@ -146,7 +149,7 @@
       const dur = durations[t.id] ? fmt(durations[t.id]) : "—";
       li.innerHTML =
         '<img class="track-thumb" src="' + thumb(t.id) + '" alt="" loading="lazy" ' +
-        "onerror=\"this.onerror=null;this.src='https://i.ytimg.com/vi/" + t.id + "/hqdefault.jpg'\">" +
+        "onerror=\"this.onerror=null;this.src='" + MEME_COVER + "'\">" +
         '<div class="track-info"><div class="track-name">' + t.title +
         '</div><div class="track-artist">' + t.artist + "</div></div>" +
         '<span class="track-dur">' + dur + "</span>" +
