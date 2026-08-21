@@ -1,0 +1,17 @@
+[
+  {
+    "id": 1,
+    "title": "Архитектура выше облаков",
+    "artist": "DOX",
+    "file": "tracks/Архитектура_выше_облаков.mp3"
+  },
+  { "id": 2,  "title": "Трек 2",  "artist": "DOX", "file": "tracks/track-02.mp3" },
+  { "id": 3,  "title": "Трек 3",  "artist": "DOX", "file": "tracks/track-03.mp3" },
+  { "id": 4,  "title": "Трек 4",  "artist": "DOX", "file": "tracks/track-04.mp3" },
+  { "id": 5,  "title": "Трек 5",  "artist": "DOX", "file": "tracks/track-05.mp3" },
+  { "id": 6,  "title": "Трек 6",  "artist": "DOX", "file": "tracks/track-06.mp3" },
+  { "id": 7,  "title": "Трек 7",  "artist": "DOX", "file": "tracks/track-07.mp3" },
+  { "id": 8,  "title": "Трек 8",  "artist": "DOX", "file": "tracks/track-08.mp3" },
+  { "id": 9,  "title": "Трек 9",  "artist": "DOX", "file": "tracks/track-09.mp3" },
+  { "id": 10, "title": "Трек 10", "artist": "DOX", "file": "tracks/track-10.mp3" }
+]

@@ -1,0 +1,5 @@
+# Аудио не храним в Git (кроме явно добавленных)
+tracks/*.mp3
+tracks/*.wav
+tracks/*.m4a
+.DS_Store

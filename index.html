@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>DOX — плеер</title>
+<style>
+  :root { color-scheme: dark; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; min-height: 100vh; font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    background: radial-gradient(1200px 600px at 20% -10%, #1e2a4a 0%, #0b0e14 60%);
+    color: #e8ecf3; display: flex; justify-content: center; padding: 32px 16px 80px;
+  }
+  .wrap { width: 100%; max-width: 760px; }
+  h1 { font-size: 22px; margin: 0 0 4px; letter-spacing: .5px; }
+  .sub { color: #8b96ab; font-size: 13px; margin-bottom: 24px; }
+  .list { display: flex; flex-direction: column; gap: 8px; }
+  .row {
+    display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 12px;
+    background: #141a25; border: 1px solid #1f2836; cursor: pointer; transition: .15s;
+  }
+  .row:hover { background: #18202e; border-color: #2c3a50; }
+  .row.active { background: #1b2740; border-color: #3d6bff; }
+  .row.missing { opacity: .55; cursor: not-allowed; }
+  .num { width: 26px; text-align: right; color: #6f7b91; font-variant-numeric: tabular-nums; font-size: 13px; }
+  .meta { flex: 1; min-width: 0; }
+  .title { font-size: 15px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .artist { font-size: 12px; color: #8b96ab; }
+  .tag { font-size: 11px; padding: 3px 8px; border-radius: 999px; background: #33202a; color: #ff8fa3; border: 1px solid #4d2c38; }
+  .player {
+    position: fixed; left: 0; right: 0; bottom: 0; background: #0f141dee; backdrop-filter: blur(10px);
+    border-top: 1px solid #1f2836; padding: 12px 16px; display: flex; justify-content: center;
+  }
+  .player-inner { width: 100%; max-width: 760px; display: flex; align-items: center; gap: 14px; }
+  .now { flex: 1; min-width: 0; font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  audio { flex: 2; min-width: 0; height: 36px; }
+  .hint { margin-top: 24px; font-size: 12px; color: #6f7b91; line-height: 1.6; }
+  code { background: #141a25; padding: 2px 6px; border-radius: 6px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>DOX — плейлист</h1>
+  <div class="sub">10 треков · воспроизведение прямо на странице, без встраивания YouTube</div>
+  <div class="list" id="list"></div>
+  <div class="hint" id="hint"></div>
+</div>
+
+<div class="player">
+  <div class="player-inner">
+    <div class="now" id="now">Ничего не играет</div>
+    <audio id="audio" controls preload="none"></audio>
+  </div>
+</div>
+
+<script>
+const listEl = document.getElementById('list');
+const audio = document.getElementById('audio');
+const nowEl = document.getElementById('now');
+const hintEl = document.getElementById('hint');
+let tracks = [];
+let current = -1;
+
+async function exists(url) {
+  try {
+    const r = await fetch(url, { method: 'HEAD' });
+    return r.ok;
+  } catch (e) { return false; }
+}
+
+function render() {
+  listEl.innerHTML = '';
+  tracks.forEach((t, i) => {
+    const row = document.createElement('div');
+    row.className = 'row' + (t.missing ? ' missing' : '') + (i === current ? ' active' : '');
+    row.innerHTML = `
+      <div class="num">${String(i + 1).padStart(2, '0')}</div>
+      <div class="meta">
+        <div class="title">${t.title}</div>
+        <div class="artist">${t.artist}</div>
+      </div>
+      ${t.missing ? '<div class="tag">файл не загружен</div>' : ''}`;
+    if (!t.missing) row.onclick = () => play(i);
+    listEl.appendChild(row);
+  });
+  const missing = tracks.filter(t => t.missing).length;
+  hintEl.innerHTML = missing
+    ? `Не найдено файлов: <b>${missing}</b>. Положите mp3 в папку <code>tracks/</code> с точно такими именами, как в <code>playlist.json</code> — трек сразу станет кликабельным.`
+    : 'Все файлы на месте.';
+}
+
+function play(i) {
+  current = i;
+  audio.src = encodeURI(tracks[i].file);
+  audio.play().catch(() => {});
+  nowEl.textContent = `▶ ${tracks[i].title} — ${tracks[i].artist}`;
+  render();
+}
+
+audio.addEventListener('ended', () => {
+  for (let i = current + 1; i < tracks.length; i++) {
+    if (!tracks[i].missing) { play(i); return; }
+  }
+});
+
+(async () => {
+  tracks = await (await fetch('playlist.json')).json();
+  await Promise.all(tracks.map(async t => { t.missing = !(await exists(encodeURI(t.file))); }));
+  render();
+})();
+</script>
+</body>
+</html>
