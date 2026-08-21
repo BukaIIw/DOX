@@ -3,7 +3,7 @@
   "use strict";
 
   const TRACKS = [
-    { id: "myown", local: true, src: "my_track.wav", title: "My Own Track (DOX)", artist: "AI Agent" },
+    { id: "myown", local: true, src: "my_track.wav", title: "My Own Track (DOX)", artist: "AI Agent", cover: "art_balance.jpg" },
     { id: "JjPtDl6EJ3o", title: "MONTAGEM XONADA", artist: "MXZI, DJ SAMIR, DJ JAVI26" },
     { id: "3lj2hlUWxhM", title: "священная война (Jumpstyle Slowed)", artist: "home4circus" },
     { id: "etN1MFbmzg0", title: "Jumpstyle Phonk", artist: "ZERO PAIN" },
@@ -26,6 +26,7 @@
     { id: "WCOnNcfCvhk", title: "GHOST!", artist: "phonk.me, KIIXSHI" },
     { id: "FLdGZTSs9Dw", title: "Sea Of Problems", artist: "glichery" },
     { id: "2ZmeRMW4Gj8", title: "Dream Space", artist: "DVRST" },
+    { id: "k37f1Ldi4BI", title: "FAVELA", artist: "MXZI, Deno" },
   ];
 
   const LS = { vol: "dox_vol", shuffle: "dox_shuffle", repeat: "dox_repeat", last: "dox_last", muted: "dox_muted" };
@@ -156,7 +157,7 @@
     const t = TRACKS[i];
     trackTitle.textContent = t.title;
     trackArtist.textContent = t.artist;
-    if (t.local) { coverImg.onerror = null; coverImg.src = MEME_COVER; }
+    if (t.local) { coverImg.onerror = null; coverImg.src = t.cover || MEME_COVER; }
     else setCoverImg(t.id);
     if (t.local) { ytLink.href = "#"; ytLink.textContent = "Локальный трек (мой)"; }
     else { ytLink.href = "https://youtu.be/" + t.id; ytLink.textContent = "YouTube ↗"; }
@@ -187,7 +188,7 @@
       li.className = "track" + (i === current ? " active" : "");
       li.dataset.index = i;
       const dur = durations[t.id] ? fmt(durations[t.id]) : (t.local ? "—" : "—");
-      const thumbSrc = t.local ? MEME_COVER : thumb(t.id);
+      const thumbSrc = t.local ? (t.cover || MEME_COVER) : thumb(t.id);
       const onerr = t.local ? "" : "onerror=\"this.onerror=null;this.src='" + MEME_COVER + "'\"";
       li.innerHTML =
         '<img class="track-thumb" src="' + thumbSrc + '" alt="" loading="lazy" ' + onerr + ">" +
